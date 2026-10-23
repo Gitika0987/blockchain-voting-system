@@ -1,0 +1,21 @@
+# Java / Maven build output
+target/
+*.class
+
+# Local databases and database backups
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+
+# Logs and crash reports
+*.log
+hs_err_pid*
+replay_pid*
+
+# IDE / OS files
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
