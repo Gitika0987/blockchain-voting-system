@@ -1,9 +1,8 @@
 package ui;
 
 import dao.VoterDAO;
-
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class Register extends JFrame {
     private JTextField nameField, ageField, aadhaarField;
@@ -43,11 +42,6 @@ public class Register extends JFrame {
             BorderFactory.createEmptyBorder(25, 25, 25, 25)
         ));
 
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(12, 10, 12, 10);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.weightx = 1.0;
-
         // Create fields upfront
         nameField = new JTextField(20);
         ageField = new JTextField(20);
@@ -55,10 +49,10 @@ public class Register extends JFrame {
         passwordField = new JPasswordField(20);
         pinField = new JPasswordField(20);
 
-        addFormField(formPanel, gbc, "Full Name:", nameField, 0);
-        addFormField(formPanel, gbc, "Age:", ageField, 1);
-        addFormField(formPanel, gbc, "Aadhaar Number:", aadhaarField, 2);
-        addFormField(formPanel, gbc, "Password:", passwordField, 3);
+        addFormField(formPanel, "Full Name:", nameField, 0);
+        addFormField(formPanel, "Age:", ageField, 2);
+        addFormField(formPanel, "Aadhaar Number:", aadhaarField, 4);
+        addFormField(formPanel, "Password:", passwordField, 6);
 
         // Show Password Checkbox
         showPasswordCheckBox = new JCheckBox("Show Password");
@@ -66,13 +60,15 @@ public class Register extends JFrame {
         showPasswordCheckBox.setOpaque(false);
         showPasswordCheckBox.setForeground(Color.WHITE);
         showPasswordCheckBox.setBackground(new Color(42, 42, 42));
-        gbc.gridy = 4;
-        gbc.gridwidth = 2;
-        gbc.insets = new Insets(6, 10, 12, 10);
-        formPanel.add(showPasswordCheckBox, gbc);
-        gbc.insets = new Insets(12, 10, 12, 10);
+        GridBagConstraints passwordCheckGbc = new GridBagConstraints();
+        passwordCheckGbc.gridx = 0;
+        passwordCheckGbc.gridy = 8;
+        passwordCheckGbc.gridwidth = 2;
+        passwordCheckGbc.fill = GridBagConstraints.HORIZONTAL;
+        passwordCheckGbc.insets = new Insets(6, 10, 12, 10);
+        formPanel.add(showPasswordCheckBox, passwordCheckGbc);
 
-        addFormField(formPanel, gbc, "Create 4-Digit PIN:", pinField, 5);
+        addFormField(formPanel, "Create 4-Digit PIN:", pinField, 10);
 
         // Show PIN Checkbox
         showPinCheckBox = new JCheckBox("Show PIN");
@@ -80,11 +76,13 @@ public class Register extends JFrame {
         showPinCheckBox.setOpaque(false);
         showPinCheckBox.setForeground(Color.WHITE);
         showPinCheckBox.setBackground(new Color(42, 42, 42));
-        gbc.gridy = 6;
-        gbc.gridwidth = 2;
-        gbc.insets = new Insets(6, 10, 12, 10);
-        formPanel.add(showPinCheckBox, gbc);
-        gbc.insets = new Insets(12, 10, 12, 10);
+        GridBagConstraints pinCheckGbc = new GridBagConstraints();
+        pinCheckGbc.gridx = 0;
+        pinCheckGbc.gridy = 12;
+        pinCheckGbc.gridwidth = 2;
+        pinCheckGbc.fill = GridBagConstraints.HORIZONTAL;
+        pinCheckGbc.insets = new Insets(6, 10, 12, 10);
+        formPanel.add(showPinCheckBox, pinCheckGbc);
 
         mainPanel.add(formPanel, BorderLayout.CENTER);
 
@@ -116,14 +114,19 @@ public class Register extends JFrame {
         showPinCheckBox.addActionListener(e -> togglePinVisibility());
     }
 
-    private void addFormField(JPanel panel, GridBagConstraints gbc, String labelText, JComponent field, int row) {
+    private void addFormField(JPanel panel, String labelText, JComponent field, int row) {
         JLabel label = new JLabel(labelText);
         label.setFont(new Font("Segoe UI", Font.PLAIN, 13));
         label.setForeground(Color.WHITE);
-        gbc.gridx = 0;
-        gbc.gridy = row;
-        gbc.gridwidth = 2;
-        panel.add(label, gbc);
+
+        GridBagConstraints labelGbc = new GridBagConstraints();
+        labelGbc.gridx = 0;
+        labelGbc.gridy = row;
+        labelGbc.gridwidth = 2;
+        labelGbc.fill = GridBagConstraints.HORIZONTAL;
+        labelGbc.weightx = 1.0;
+        labelGbc.insets = new Insets(12, 10, 8, 10);
+        panel.add(label, labelGbc);
 
         if (field instanceof JTextField) {
             JTextField tf = (JTextField) field;
@@ -139,10 +142,15 @@ public class Register extends JFrame {
             pf.setBorder(BorderFactory.createLineBorder(new Color(80, 80, 80)));
         }
 
-        gbc.gridy = row + 1;
-        gbc.ipady = 8;
-        panel.add(field, gbc);
-        gbc.ipady = 0;
+        GridBagConstraints fieldGbc = new GridBagConstraints();
+        fieldGbc.gridx = 0;
+        fieldGbc.gridy = row + 1;
+        fieldGbc.gridwidth = 2;
+        fieldGbc.fill = GridBagConstraints.HORIZONTAL;
+        fieldGbc.weightx = 1.0;
+        fieldGbc.ipady = 8;
+        fieldGbc.insets = new Insets(0, 10, 12, 10);
+        panel.add(field, fieldGbc);
     }
 
     private JButton createModernButton(String text, Color bgColor, Color fgColor) {
